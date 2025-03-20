@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1742495751 source:d:\24020138_monster_war\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
