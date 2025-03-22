@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Button.h" />
+		<Unit filename="ChuKiHam.cpp" />
+		<Unit filename="ChuKiHam.h" />
+		<Unit filename="Const.h" />
 		<Unit filename="Images/bando.jpg" />
 		<Unit filename="Images/giaodien.jpg" />
 		<Unit filename="main.cpp" />

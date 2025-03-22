@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1742569890 source:d:\24020138_monsters_war\main.cpp
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+	"ChuKiHam.h"
+	"HamCaoCap.h"
+
+1742569339 source:d:\24020138_monsters_war\chukiham.cpp
+	"ChuKiHam.h"
+	"Const.h"
+
+1742569204 d:\24020138_monsters_war\chukiham.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+
+1742569924 d:\24020138_monsters_war\const.h
+
+1742569980 source:d:\24020138_monsters_war\hamcaocap.cpp
+	"HamCaoCap.h"
+	"ChuKiHam.h"
+
+1742569953 d:\24020138_monsters_war\hamcaocap.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+	"Const.h"
+
