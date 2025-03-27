@@ -7,7 +7,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Const.h"
+#include "ChuKiHam.h"
 
 using namespace std;
 
-void sanhcho();
+void UpdateCreateMap(SDL_Window* window, SDL_Renderer* renderer, int Money, int Food);
+
+

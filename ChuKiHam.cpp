@@ -1,5 +1,5 @@
 #include "ChuKiHam.h"
-#include "Const.h"
+
 void logErrorAndExit(const char* msg, const char* error)
 {
     SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, "%s: %s", msg, error);
@@ -8,6 +8,8 @@ void logErrorAndExit(const char* msg, const char* error)
 
 SDL_Window* initSDL(int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WINDOW_TITLE)
 {
+    SDL_Init(SDL_INIT_VIDEO);
+    TTF_Init();
     if (!IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG))
     {
     logErrorAndExit( "SDL_image error:", IMG_GetError());
@@ -24,7 +26,7 @@ SDL_Window* initSDL(int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WINDOW_TITL
     return window;
 }
 
-SDL_Texture *loadTexture(const char *filename, SDL_Renderer* renderer)
+SDL_Texture *loadIMG(const char *filename, SDL_Renderer* renderer)
 {
 	SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO,
                      "Loading %s", filename);
@@ -96,4 +98,29 @@ void renderTexture(SDL_Texture *texture, int x, int y,
 
 	SDL_RenderCopy(renderer, texture, NULL, &dest);
 }
+
+SDL_Texture* loadText(const std::string& text, SDL_Color color, string font_path, int font_size, SDL_Renderer* renderer)
+{
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO,
+                     "Loading %s", font_path.c_str());
+    TTF_Font *font = TTF_OpenFont(font_path.c_str(), font_size);
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    if (texture == NULL) {
+        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR,
+                       "Load texture %s", TTF_GetError());
+      }
+
+    return texture;
+}
+
+void HienThiChu(string s, SDL_Color color, string font_path, int font_size, int x, int y, int w, int h, SDL_Renderer* renderer)
+{
+    SDL_Texture* Texture = loadText(s, color, font_path, font_size, renderer);
+    SDL_Rect Rect = {x, y, w, h};
+    SDL_RenderCopy(renderer, Texture, nullptr, &Rect);
+    SDL_DestroyTexture(Texture);
+}
+
 

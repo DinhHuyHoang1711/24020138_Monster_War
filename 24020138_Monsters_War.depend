@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1742569890 source:d:\24020138_monsters_war\main.cpp
+1743097466 source:d:\24020138_monsters_war\main.cpp
 	<iostream>
 	<cmath>
 	<algorithm>
@@ -7,23 +7,26 @@
 	<cstring>
 	<SDL.h>
 	<SDL_image.h>
+	"Const.h"
 	"ChuKiHam.h"
-	"HamCaoCap.h"
+	"TaoBanDo.h"
 
-1742569339 source:d:\24020138_monsters_war\chukiham.cpp
+1743095396 source:d:\24020138_monsters_war\chukiham.cpp
 	"ChuKiHam.h"
+
+1743094177 d:\24020138_monsters_war\chukiham.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
 	"Const.h"
 
-1742569204 d:\24020138_monsters_war\chukiham.h
-	<iostream>
-	<cmath>
-	<algorithm>
-	<string>
-	<cstring>
-	<SDL.h>
-	<SDL_image.h>
-
-1742569924 d:\24020138_monsters_war\const.h
+1743095065 d:\24020138_monsters_war\const.h
+	"ChuKiHam.h"
 
 1742569980 source:d:\24020138_monsters_war\hamcaocap.cpp
 	"HamCaoCap.h"
@@ -38,4 +41,18 @@
 	<SDL.h>
 	<SDL_image.h>
 	"Const.h"
+
+1743096786 source:d:\24020138_monsters_war\taobando.cpp
+	"TaoBanDo.h"
+
+1743097466 d:\24020138_monsters_war\taobando.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+	"Const.h"
+	"ChuKiHam.h"
 

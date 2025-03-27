@@ -32,12 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Button.h" />
 		<Unit filename="ChuKiHam.cpp" />
 		<Unit filename="ChuKiHam.h" />
 		<Unit filename="Const.h" />
 		<Unit filename="Images/bando.jpg" />
 		<Unit filename="Images/giaodien.jpg" />
+		<Unit filename="TaoBanDo.cpp" />
+		<Unit filename="TaoBanDo.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
