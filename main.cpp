@@ -1,10 +1,3 @@
-#include <iostream>
-#include <cmath>
-#include <algorithm>
-#include <string>
-#include <cstring>
-#include <SDL.h>
-#include <SDL_image.h>
 #include "Const.h"
 #include "ChuKiHam.h"
 #include "TaoBanDo.h"
@@ -51,7 +44,7 @@ int main(int argc, char *argv[])
                 SDL_Point MousePoint ={e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &StartRect))
                 {
-                    UpdateCreateMap(window, renderer, Money, Food);
+                    UpdateCreateMap(window, renderer, Money, Food);//Cap nhat map, money, food
                 }
             }
         }
