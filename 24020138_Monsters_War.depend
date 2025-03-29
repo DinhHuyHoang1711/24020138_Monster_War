@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1743155385 source:d:\24020138_monsters_war\main.cpp
+1743280109 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
-	"ChuKiHam.h"
 	"TaoBanDo.h"
+	"GameOn.h"
 
 1743155067 source:d:\24020138_monsters_war\chukiham.cpp
 	"ChuKiHam.h"
@@ -10,15 +10,21 @@
 1743155067 d:\24020138_monsters_war\chukiham.h
 	"Const.h"
 
-1743152914 d:\24020138_monsters_war\const.h
+1743261392 d:\24020138_monsters_war\const.h
 	<iostream>
+	<cstdlib>
+	<ctime>
 	<cmath>
 	<algorithm>
 	<string>
 	<cstring>
+	<vector>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
+	"BasicFunctions.h"
+	"Level.h"
+	"Monster.h"
 
 1742569980 source:d:\24020138_monsters_war\hamcaocap.cpp
 	"HamCaoCap.h"
@@ -34,10 +40,62 @@
 	<SDL_image.h>
 	"Const.h"
 
-1743156564 source:d:\24020138_monsters_war\taobando.cpp
+1743174315 source:d:\24020138_monsters_war\taobando.cpp
 	"TaoBanDo.h"
+	"Level.h"
 
-1743153750 d:\24020138_monsters_war\taobando.h
+1743216950 d:\24020138_monsters_war\taobando.h
 	"Const.h"
-	"ChuKiHam.h"
+	"BasicFunctions.h"
+
+1743168412 source:d:\24020138_monsters_war\monster.cpp
+
+1743169370 source:d:\24020138_monsters_war\level.cpp
+	"Level.h"
+
+1743277463 d:\24020138_monsters_war\level.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<vector>
+	"Monster.h"
+
+1743277144 source:d:\24020138_monsters_war\gameon.cpp
+	"GameOn.h"
+	"Combat.h"
+
+1743262271 d:\24020138_monsters_war\gameon.h
+	"Const.h"
+
+1743280555 d:\24020138_monsters_war\monster.h
+	<iostream>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<vector>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+
+1743277057 source:d:\24020138_monsters_war\combat.cpp
+	"Combat.h"
+
+1743233340 d:\24020138_monsters_war\combat.h
+	"Const.h"
+
+1743155067 d:\24020138_monsters_war\basicfunctions.h
+	"Const.h"
+
+1743216950 source:d:\24020138_monsters_war\basicfunctions.cpp
+	"BasicFunctions.h"
+
+1743217827 source:d:\24020138_monsters_war\thunghiem.cpp
+	"Const.h"
+	"BasicFunctions.h"
 

@@ -1,6 +1,7 @@
 #include "TaoBanDo.h"
+#include "Level.h"
 
-void UpdateCreateMap(SDL_Window* window, SDL_Renderer* renderer, int &Money, int &Food)
+void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, int n)
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
@@ -42,7 +43,14 @@ void UpdateCreateMap(SDL_Window* window, SDL_Renderer* renderer, int &Money, int
     background = loadIMG("images\\Gear.png", renderer);
     SDL_Rect GearRect = {870, 535, 60, 60};
     SDL_RenderCopy(renderer, background, NULL, &GearRect);
-
+    //Ve cac LV
+    background = loadIMG((Lv[1].check == true) ? Lv[1].Button[2].c_str() : Lv[1].Button[1].c_str(), renderer);
+    SDL_RenderCopy(renderer, background, NULL, &Lv[1].Rect);
+    for(int i = 2; i <= n; i++)
+    {
+        background = loadIMG((Lv[i - 1].check == true) ? Lv[i].Button[1].c_str() : Lv[i].Button[0].c_str(), renderer);
+        if(Lv[i].check == true) background = loadIMG(Lv[i].Button[2].c_str(), renderer);
+        SDL_RenderCopy(renderer, background, NULL, &Lv[i].Rect);
+    }
     SDL_RenderPresent(renderer);
-
 }

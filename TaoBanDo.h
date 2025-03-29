@@ -1,9 +1,9 @@
 #pragma once
 #include "Const.h"
-#include "ChuKiHam.h"
+#include "BasicFunctions.h"
 
 using namespace std;
 
-void UpdateCreateMap(SDL_Window* window, SDL_Renderer* renderer, int &Money, int &Food);
+void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, int n);
 
 

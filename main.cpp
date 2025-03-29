@@ -1,15 +1,20 @@
 #include "Const.h"
-#include "ChuKiHam.h"
 #include "TaoBanDo.h"
+#include "GameOn.h"
 const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
+
+vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Liquiz};
+
+Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2};
 int Money = 0;
 int Food = 0;
 
-
 int main(int argc, char *argv[])
 {
+    srand(time(0));
+    Lv[0].check = true;
     SDL_Window* window;
     window = initSDL(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SDL_Renderer* renderer = createRenderer(window);
@@ -41,20 +46,46 @@ int main(int argc, char *argv[])
             }
             if(e.type == SDL_MOUSEBUTTONDOWN)//Start game
             {
-                SDL_Point MousePoint ={e.button.x, e.button.y};
+                SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &StartRect))
                 {
-                    UpdateCreateMap(window, renderer, Money, Food);//Cap nhat map, money, food
+                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);//Cap nhat map, money, food
+                    while(true)
+                    {
+                        if(SDL_PollEvent(&e))
+                        {
+                            if(e.type == SDL_MOUSEBUTTONDOWN)
+                            {
+                                MousePoint = {e.button.x, e.button.y};
+                                for(int i = 1; i <= TotalLevel; i++)
+                                {
+                                    if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == false)
+                                    {
+                                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Chưa mở khóa level này.", "Bạn cần hoàn thành level trước đó.", window);
+                                    }
+                                    if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == true)
+                                    {
+                                        GameOn(Lv[i], PlayerMonster, renderer, window, Money, Food);
+                                        UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                        break;
+                                    }
+                                }
+                            }
+                            if(e.type == SDL_QUIT)//Quit game
+                            {
+                                SDL_DestroyTexture(background);
+                                background = NULL;
+                                SDL_DestroyRenderer(renderer);
+                                renderer = NULL;
+                                quitSDL(window, renderer);
+                                return 0;
+                            }
+                        }
+                    }
+
                 }
             }
         }
-
     }
-    SDL_DestroyTexture(background);
-    background = NULL;
-    SDL_DestroyRenderer(renderer);
-    renderer = NULL;
-    quitSDL(window, renderer);
-    return 0;
 }
 

@@ -32,13 +32,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="ChuKiHam.cpp" />
-		<Unit filename="ChuKiHam.h" />
+		<Unit filename="BasicFunctions.cpp" />
+		<Unit filename="BasicFunctions.h" />
+		<Unit filename="Combat.cpp" />
+		<Unit filename="Combat.h" />
 		<Unit filename="Const.h" />
+		<Unit filename="GameOn.cpp" />
+		<Unit filename="GameOn.h" />
 		<Unit filename="Images/bando.jpg" />
 		<Unit filename="Images/giaodien.jpg" />
+		<Unit filename="Level.h" />
+		<Unit filename="Monster.h" />
 		<Unit filename="TaoBanDo.cpp" />
 		<Unit filename="TaoBanDo.h" />
+		<Unit filename="ThuNghiem.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
