@@ -255,20 +255,24 @@ struct Monster
 //
 //Monster cua Player
 const Monster Liquiz  ("Liquiz", 1, "Melee", "Slime\\SlimeIdle.png",
-                    {"Slime\\Slime1.png", "Slime\\Slime2.png", "Slime\\Slime3.png", "Slime\\Slime4.png",
-                    "Slime\\Slime5.png", "Slime\\Slime6.png", "Slime\\Slime7.png", "Slime\\Slime8.png"},
-                     {"Slime\\SlimeAttack1.png", "Slime\\SlimeAttack2.png"}, 0, 5, 100, 100, 10,
-                      500, 30, 5, 65, 20,
-                      40, 5, 2, 2, 2, 100);
+{
+    "Slime\\Slime1.png", "Slime\\Slime2.png", "Slime\\Slime3.png", "Slime\\Slime4.png",
+    "Slime\\Slime5.png", "Slime\\Slime6.png", "Slime\\Slime7.png", "Slime\\Slime8.png"
+},
+{"Slime\\SlimeAttack1.png", "Slime\\SlimeAttack2.png"}, 0, 5, 100, 100, 10,
+500, 30, 5, 65, 20,
+40, 5, 2, 2, 2, 100);
 
 const Monster Eater ("Eater", 1, "Melee", "Carnitree\\CarnitreeIdle.png",
-                     {"Carnitree\\Carnitree1.png", "Carnitree\\Carnitree2.png", "Carnitree\\Carnitree3.png",
-                     "Carnitree\\Carnitree4.png", "Carnitree\\Carnitree5.png", "Carnitree\\Carnitree6.png",
-                     "Carnitree\\Carnitree7.png", "Carnitree\\Carnitree8.png"},
-                     {"Carnitree\\CarnitreeAttack1.png", "Carnitree\\CarnitreeAttack2.png"}, 0, 8, 100, 100, 7,
-                     450, 40, 3, 65, 20,
-                     30, 6, 1, 1, 4, 100
-                     );
+{
+    "Carnitree\\Carnitree1.png", "Carnitree\\Carnitree2.png", "Carnitree\\Carnitree3.png",
+    "Carnitree\\Carnitree4.png", "Carnitree\\Carnitree5.png", "Carnitree\\Carnitree6.png",
+    "Carnitree\\Carnitree7.png", "Carnitree\\Carnitree8.png"
+},
+{"Carnitree\\CarnitreeAttack1.png", "Carnitree\\CarnitreeAttack2.png"}, 0, 7, 100, 100, 8,
+450, 40, 3, 65, 20,
+30, 6, 1, 1, 4, 100
+                    );
 
 //
 //
@@ -277,7 +281,19 @@ const Monster Eater ("Eater", 1, "Melee", "Carnitree\\CarnitreeIdle.png",
 //
 //Monster cua Enemy
 const Monster Squishee ("Squishee", 1, "Melee", "Slime\\SlimeIdleEnemy.png",
-                    {"Slime\\SlimeEnemy1.png", "Slime\\SlimeEnemy2.png", "Slime\\SlimeEnemy3.png", "Slime\\SlimeEnemy4.png",
-                     "Slime\\SlimeEnemy5.png", "Slime\\SlimeEnemy6.png", "Slime\\SlimeEnemy7.png", "Slime\\SlimeEnemy8.png"},
-                     {"Slime\\SlimeAttackEnemy1.png", "Slime\\SlimeAttackEnemy2.png"}, 0, 5, 100, 100, 10,
-                      300, 15, 3, 60, 15);
+{
+    "Slime\\SlimeEnemy1.png", "Slime\\SlimeEnemy2.png", "Slime\\SlimeEnemy3.png", "Slime\\SlimeEnemy4.png",
+    "Slime\\SlimeEnemy5.png", "Slime\\SlimeEnemy6.png", "Slime\\SlimeEnemy7.png", "Slime\\SlimeEnemy8.png"
+},
+{"Slime\\SlimeAttackEnemy1.png", "Slime\\SlimeAttackEnemy2.png"}, 0, 5, 100, 100, 10,
+300, 15, 3, 60, 15);
+
+const Monster Hungtree ("Hungtree", 1, "Melee", "Carnitree\\CarnitreeIdleEnemy.png",
+{
+    "Carnitree\\CarnitreeEnemy1.png", "Carnitree\\CarnitreeEnemy2.png", "Carnitree\\CarnitreeEnemy3.png",
+    "Carnitree\\CarnitreeEnemy4.png", "Carnitree\\CarnitreeEnemy5.png", "Carnitree\\CarnitreeEnemy6.png",
+    "Carnitree\\CarnitreeEnemy7.png", "Carnitree\\CarnitreeEnemy8.png"
+},
+{"Carnitree\\CarnitreeAttackEnemy1.png", "Carnitree\\CarnitreeAttackEnemy2.png"}, 0, 7, 100, 100, 8,
+250, 25, 2, 65, 15);
+

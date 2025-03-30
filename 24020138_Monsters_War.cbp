@@ -37,15 +37,14 @@
 		<Unit filename="Combat.cpp" />
 		<Unit filename="Combat.h" />
 		<Unit filename="Const.h" />
+		<Unit filename="CreateMap.cpp" />
+		<Unit filename="CreateMap.h" />
 		<Unit filename="GameOn.cpp" />
 		<Unit filename="GameOn.h" />
 		<Unit filename="Images/bando.jpg" />
 		<Unit filename="Images/giaodien.jpg" />
 		<Unit filename="Level.h" />
 		<Unit filename="Monster.h" />
-		<Unit filename="TaoBanDo.cpp" />
-		<Unit filename="TaoBanDo.h" />
-		<Unit filename="ThuNghiem.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

@@ -2,10 +2,9 @@
 
 bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* renderer, SDL_Window* window)
 {
-    SDL_Texture* background;
     SDL_Event e;
-
     SDL_Rect MenuRect = {0, 500, SCREEN_WIDTH, 100};
+    SDL_Texture* background;
 
     vector <Monster> EnemyMonster;
     for(auto x : Lv.M)
@@ -38,7 +37,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         PlayerDamaged.push_back(0);
         PlayerRect.push_back({*X, *Y, x.MonsterWidth, x.MonsterHeight});
         *X += 70;
-        *Y += 5;
+        *Y += 7;
         *PlayerTotalHp += x.BaseHp;
     }
     *X = 930;
@@ -50,7 +49,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         EnemyDamaged.push_back(0);
         EnemyRect.push_back({*X, *Y, x.MonsterWidth, x.MonsterHeight});
         *X -= 70;
-        *Y += 5;
+        *Y += 7;
         *EnemyTotalHp += x.BaseHp;
     }
 
@@ -60,7 +59,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
     {
         *PlayerTotalHp = 0;
         *EnemyTotalHp = 0;
-
+        SDL_RenderClear(renderer);
         for(int i = 0; i < PlayerHp.size(); i++)
         {
             PlayerDamaged[i] = 0;
@@ -75,9 +74,9 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             if(e.type == SDL_QUIT)
             {
                 SDL_DestroyTexture(background);
-                background = NULL;
+                background = nullptr;
                 SDL_DestroyRenderer(renderer);
-                renderer = NULL;
+                renderer = nullptr;
                 quitSDL(window, renderer);
                 exit(1);
             }
@@ -86,6 +85,8 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                 SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &SurrenderButton))
                 {
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
                     *PlayerTotalHp = 0;
                     break;
                 }
@@ -93,16 +94,22 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         }
         SDL_RenderClear(renderer);
         //ve ban do
-        background = loadIMG(Lv.Image.c_str(), renderer);
+        background = loadIMG(Lv.Image.c_str(), renderer, background);
         SDL_RenderCopy(renderer, background, NULL, NULL);
+        SDL_DestroyTexture(background);
+        background = nullptr;
 
         //Ve nut dau hang
-        background = loadIMG("images\\WhiteFlag1.png", renderer);
+        background = loadIMG("images\\WhiteFlag1.png", renderer, background);
         SDL_RenderCopy(renderer, background, NULL, &SurrenderButton);
-
+        SDL_DestroyTexture(background);
+        background = nullptr;
         //ve thanh menu
-        background = loadIMG("images\\ThanhMenu.jpg", renderer);
+        background = loadIMG("images\\ThanhMenu.jpg", renderer, background);
         SDL_RenderCopy(renderer, background, NULL, &MenuRect);
+        SDL_DestroyTexture(background);
+        background = nullptr;
+
 
 
         //Ve thanh hp
@@ -110,11 +117,13 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         SDL_Rect Edge = {495, 500, 10, 100};
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderFillRect(renderer, &Edge);
-
-        Edge = {470, 480, 35, 35};
-        background = loadText("V/S", SDL_Color {255, 255, 0}, "arial.ttf", 35, renderer);
-        GetSizeOfText("V/S", "arial.ttf", 35, Edge.w, Edge.h);
+        Edge = {475, 480, 35, 35};
+        background = loadText("VS", new SDL_Color ({255, 255, 0}), "arial.ttf", new int(35), renderer, background);
+        SDL_QueryTexture(background, NULL, NULL, &Edge.w, &Edge.h);
         SDL_RenderCopy(renderer, background, NULL, &Edge);
+        SDL_DestroyTexture(background);
+        background = nullptr;
+
 
         for(int i = 0; i < PlayerHp.size(); i++)
         {
@@ -122,8 +131,10 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_Rect RedHpRect = {PlayerIdleX[i], 565, 100, 20};
             SDL_Rect GreenHpRect = {PlayerIdleX[i], 565, 100 * PlayerHp[i] / PlayerMonster[i].BaseHp, 20};
 
-            background = loadIMG(PlayerMonster[i].IdleIMG.c_str(), renderer);
+            background = loadIMG(PlayerMonster[i].IdleIMG.c_str(), renderer, background);
             SDL_RenderCopy(renderer, background, NULL, &IdleRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
 
             SDL_SetRenderDrawColor(renderer, 212, 32, 32, 255);
             SDL_RenderFillRect(renderer, &RedHpRect);
@@ -131,17 +142,20 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_SetRenderDrawColor(renderer, 57, 232, 37, 255);
             SDL_RenderFillRect(renderer, &GreenHpRect);
 
-            int text_w = 0, text_h = 0;
 
-            background = loadText(PlayerMonster[i].Name.c_str(), SDL_Color {255, 255, 255}, "arial.ttf", 15, renderer);
-            GetSizeOfText(PlayerMonster[i].Name.c_str(), "arial.ttf", 15, text_w, text_h);
-            SDL_Rect TextRect = {PlayerIdleX[i] + 50, 515, text_w, text_h};
+            background = loadText(PlayerMonster[i].Name.c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            SDL_Rect TextRect = {PlayerIdleX[i] + 50, 515, 0, 0};
+            SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
 
-            background = loadText(("Lv." + to_string(PlayerMonster[i].Level)).c_str(), SDL_Color {255, 255, 255}, "arial.ttf", 15, renderer);
-            GetSizeOfText(("Lv " + to_string(PlayerMonster[i].Level)).c_str(), "arial.ttf", 15, text_w, text_h);
-            TextRect = {PlayerIdleX[i] + 50, 540, text_w, text_h};
+            background = loadText(("Lv." + to_string(PlayerMonster[i].Level)).c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            TextRect = {PlayerIdleX[i] + 50, 540, 0, 0};
+            SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
         }
 
         for(int i = 0; i < EnemyHp.size(); i++)
@@ -150,8 +164,10 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_Rect RedHpRect = {EnemyIdleX[i], 565, 100, 20};
             SDL_Rect GreenHpRect = {EnemyIdleX[i], 565, 100 * EnemyHp[i] / EnemyMonster[i].BaseHp, 20};
 
-            background = loadIMG(EnemyMonster[i].IdleIMG.c_str(), renderer);
+            background = loadIMG(EnemyMonster[i].IdleIMG.c_str(), renderer, background);
             SDL_RenderCopy(renderer, background, NULL, &IdleRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
 
             SDL_SetRenderDrawColor(renderer, 212, 32, 32, 255);
             SDL_RenderFillRect(renderer, &RedHpRect);
@@ -159,19 +175,20 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_SetRenderDrawColor(renderer, 57, 232, 37, 255);
             SDL_RenderFillRect(renderer, &GreenHpRect);
 
-            int text_w = 0, text_h = 0;
-
-            background = loadText(EnemyMonster[i].Name.c_str(), SDL_Color {255, 255, 255}, "arial.ttf", 15, renderer);
-            GetSizeOfText(EnemyMonster[i].Name.c_str(), "arial.ttf", 15, text_w, text_h);
-            SDL_Rect TextRect = {EnemyIdleX[i] + 50, 515, text_w, text_h};
+            background = loadText(EnemyMonster[i].Name.c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            SDL_Rect TextRect = {EnemyIdleX[i] + 50, 515, 0, 0};
+            SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
 
-            background = loadText(("Lv." + to_string(EnemyMonster[i].Level)).c_str(), SDL_Color {255, 255, 255}, "arial.ttf", 15, renderer);
-            GetSizeOfText(("Lv " + to_string(EnemyMonster[i].Level)).c_str(), "arial.ttf", 15, text_w, text_h);
-            TextRect = {EnemyIdleX[i] + 50, 540, text_w, text_h};
+            background = loadText(("Lv." + to_string(EnemyMonster[i].Level)).c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            TextRect = {EnemyIdleX[i] + 50, 540, 0, 0};
+            SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
         }
-
         //Monster bem nhau
         //Ve~ EnemyMonster
         for(int i = 0; i < EnemyHp.size(); i++)
@@ -181,12 +198,15 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                 EnemyCanMove[i] = true;
                 for(int j = 0; j < PlayerHp.size(); j++)
                 {
-                    if(PlayerHp[j] > 0 && SDL_HasIntersection(&EnemyRect[i], &PlayerRect[j]))
+                    if(PlayerHp[j] > 0 && Intersection(EnemyRect[i], PlayerRect[j]))
                     {
                         EnemyCanMove[i] = false;
                         if((time % EnemyMonster[i].AttackSpeed) == 0)
                         {
-                            background = loadIMG(EnemyMonster[i].AttackIMG[1].c_str(), renderer);
+                            background = loadIMG(EnemyMonster[i].AttackIMG[1].c_str(), renderer, background);
+                            SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                            SDL_DestroyTexture(background);
+                            background = nullptr;
                             if((rand() % 100 + 1) <= EnemyMonster[i].BaseAccuracy)
                             {
                                 PlayerDamaged[j] = EnemyMonster[i].BaseAtk;
@@ -199,16 +219,21 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                         }
                         else
                         {
-                            background = loadIMG(EnemyMonster[i].AttackIMG[0].c_str(), renderer);
+                            background = loadIMG(EnemyMonster[i].AttackIMG[0].c_str(), renderer, background);
+                            SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                            SDL_DestroyTexture(background);
+                            background = nullptr;
                         }
                     }
                     if(EnemyCanMove[i] == false) break;
                 }
                 if(EnemyCanMove[i] == true)
                 {
-                    background = loadIMG(EnemyMonster[i].MoveIMG[time % EnemyMonster[i].MoveIMG.size()].c_str(), renderer);
+                    background = loadIMG(EnemyMonster[i].MoveIMG[time % EnemyMonster[i].MoveIMG.size()].c_str(), renderer, background);
+                    SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
                 }
-                SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
             }
         }
         //Ve~ PlayerMonster
@@ -219,12 +244,15 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                 PlayerCanMove[i] = true;
                 for(int j = 0; j < EnemyHp.size(); j++)
                 {
-                    if(EnemyHp[j] > 0 && SDL_HasIntersection(&PlayerRect[i], &EnemyRect[j]))
+                    if(EnemyHp[j] > 0 && Intersection(PlayerRect[i], EnemyRect[j]))
                     {
                         PlayerCanMove[i] = false;
                         if((time % PlayerMonster[i].AttackSpeed) == 0)
                         {
-                            background = loadIMG(PlayerMonster[i].AttackIMG[1].c_str(), renderer);
+                            background = loadIMG(PlayerMonster[i].AttackIMG[1].c_str(), renderer, background);
+                            SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                            SDL_DestroyTexture(background);
+                            background = nullptr;
                             if((rand() % 100 + 1) <= PlayerMonster[i].BaseAccuracy)
                             {
                                 EnemyDamaged[j] = PlayerMonster[i].BaseAtk;
@@ -237,19 +265,25 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                         }
                         else
                         {
-                            background = loadIMG(PlayerMonster[i].AttackIMG[0].c_str(), renderer);
+                            background = loadIMG(PlayerMonster[i].AttackIMG[0].c_str(), renderer, background);
+                            SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                            SDL_DestroyTexture(background);
+                            background = nullptr;
                         }
                     }
                     if(PlayerCanMove[i] == false) break;
                 }
                 if(PlayerCanMove[i] == true)
                 {
-                    background = loadIMG(PlayerMonster[i].MoveIMG[time % PlayerMonster[i].MoveIMG.size()].c_str(), renderer);
+                    background = loadIMG(PlayerMonster[i].MoveIMG[time % PlayerMonster[i].MoveIMG.size()].c_str(), renderer, background);
+                    SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
                 }
-                SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
             }
         }
         SDL_RenderPresent(renderer);
+        SDL_Delay(10);
         //Cap nhat hp
         for(int i = 0; i < EnemyHp.size(); i++)
         {
@@ -277,17 +311,21 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                 EnemyRect[i].x -= EnemyMonster[i].MoveSpeed;
             }
         }
-        SDL_Delay(20);
         //Cho 1s sau khi xong tran
         if(*PlayerTotalHp == 0 || *EnemyTotalHp == 0)
         {
 
-            background = loadIMG(Lv.Image.c_str(), renderer);
+            background = loadIMG(Lv.Image.c_str(), renderer, background);
             SDL_RenderCopy(renderer, background, NULL, NULL);
+            SDL_DestroyTexture(background);
+            background = nullptr;
 
 
-            background = loadIMG("images\\ThanhMenu.jpg", renderer);
+            background = loadIMG("images\\ThanhMenu.jpg", renderer, background);
             SDL_RenderCopy(renderer, background, NULL, &MenuRect);
+            SDL_DestroyTexture(background);
+            background = nullptr;
+
             for(int i = 0; i < EnemyHp.size(); i++)
             {
                 if(EnemyHp[i] > 0 && EnemyMonster[i].Class == "Melee")
@@ -300,7 +338,11 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                             EnemyCanMove[i] = false;
                             if((time % EnemyMonster[i].AttackSpeed) == 0)
                             {
-                                background = loadIMG(EnemyMonster[i].AttackIMG[1].c_str(), renderer);
+                                background = loadIMG(EnemyMonster[i].AttackIMG[1].c_str(), renderer, background);
+                                SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                                SDL_DestroyTexture(background);
+                                background = nullptr;
+
                                 if((rand() % 100 + 1) <= EnemyMonster[i].BaseAccuracy)
                                 {
                                     PlayerDamaged[j] = EnemyMonster[i].BaseAtk;
@@ -313,16 +355,23 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                             }
                             else
                             {
-                                background = loadIMG(EnemyMonster[i].AttackIMG[0].c_str(), renderer);
+                                background = loadIMG(EnemyMonster[i].AttackIMG[0].c_str(), renderer, background);
+                                SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                                SDL_DestroyTexture(background);
+                                background = nullptr;
+
                             }
                             break;
                         }
                     }
                     if(EnemyCanMove[i] == true)
                     {
-                        background = loadIMG(EnemyMonster[i].MoveIMG[time % EnemyMonster[i].MoveIMG.size()].c_str(), renderer);
+                        background = loadIMG(EnemyMonster[i].MoveIMG[time % EnemyMonster[i].MoveIMG.size()].c_str(), renderer, background);
+                        SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
+                        SDL_DestroyTexture(background);
+                        background = nullptr;
+
                     }
-                    SDL_RenderCopy(renderer, background, NULL, &EnemyRect[i]);
                 }
             }
             //Ve~ PlayerMonster
@@ -338,7 +387,10 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                             PlayerCanMove[i] = false;
                             if((time % PlayerMonster[i].AttackSpeed) == 0)
                             {
-                                background = loadIMG(PlayerMonster[i].AttackIMG[1].c_str(), renderer);
+                                background = loadIMG(PlayerMonster[i].AttackIMG[1].c_str(), renderer, background);
+                                SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                                SDL_DestroyTexture(background);
+                                background = nullptr;
                                 if((rand() % 100 + 1) <= PlayerMonster[i].BaseAccuracy)
                                 {
                                     EnemyDamaged[j] = PlayerMonster[i].BaseAtk;
@@ -351,22 +403,32 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                             }
                             else
                             {
-                                background = loadIMG(PlayerMonster[i].AttackIMG[0].c_str(), renderer);
+                                background = loadIMG(PlayerMonster[i].AttackIMG[0].c_str(), renderer, background);
+                                SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                                SDL_DestroyTexture(background);
+                                background = nullptr;
                             }
                             break;
                         }
                     }
                     if(PlayerCanMove[i] == true)
                     {
-                        background = loadIMG(PlayerMonster[i].MoveIMG[time % PlayerMonster[i].MoveIMG.size()].c_str(), renderer);
+                        background = loadIMG(PlayerMonster[i].MoveIMG[time % PlayerMonster[i].MoveIMG.size()].c_str(), renderer, background);
+                        SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+                        SDL_DestroyTexture(background);
+                        background = nullptr;
                     }
-                    SDL_RenderCopy(renderer, background, NULL, &PlayerRect[i]);
+
                 }
             }
             SDL_RenderPresent(renderer);
             SDL_Delay(1000);
         }
+        SDL_DestroyTexture(background);
+        background = nullptr;
     }
+    SDL_DestroyTexture(background);
+    background = nullptr;
     PlayerHp.clear();
     EnemyHp.clear();
     PlayerDamaged.clear();

@@ -58,5 +58,5 @@ struct Level
 
 const int TotalLevel = 2;
 const Level Lv0(0, 0);
-const Level Lv1(1, 500, 300, 100, 100, 20, 20, "images\\Plain.jpg", "images\\Lv1PopUp.png", {Squishee, Squishee, Squishee, Squishee});
+const Level Lv1(1, 500, 300, 100, 100, 20, 20, "images\\Plain.jpg", "images\\Lv1PopUp.png", {Squishee, Hungtree, Squishee, Hungtree});
 const Level Lv2(2, 460, 260, 100, 100, 20, 20, "images\\Plain.jpg", "images\\LV1PopUp.png", {Squishee});

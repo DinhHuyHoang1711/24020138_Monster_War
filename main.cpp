@@ -1,11 +1,11 @@
 #include "Const.h"
-#include "TaoBanDo.h"
+#include "CreateMap.h"
 #include "GameOn.h"
 const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
 
-vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Liquiz};
+vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Eater};
 
 Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2};
 int Money = 0;
@@ -21,12 +21,17 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
     //Hien thi giao dien vao game
-    SDL_Texture* background = loadIMG("images\\giaodien.jpg", renderer);
+    SDL_Texture* background;
+    background = loadIMG("images\\giaodien.jpg", renderer, background);
     SDL_RenderCopy(renderer, background, NULL, NULL);
+    SDL_DestroyTexture(background);
+    background = nullptr;
 
     SDL_Rect StartRect = {450, 400, 100, 50};
-    SDL_Texture* StartText = loadText("START", SDL_Color{63, 20, 202}, "BASKVILL.TTF", 40, renderer);
-    SDL_RenderCopy(renderer, StartText, NULL, &StartRect);
+    background = loadText("START", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+    SDL_RenderCopy(renderer, background, NULL, &StartRect);
+    SDL_DestroyTexture(background);
+    background = nullptr;
     SDL_RenderPresent(renderer);
 
     //Kiem tra thoat game hoac start
@@ -37,8 +42,9 @@ int main(int argc, char *argv[])
         {
             if(e.type == SDL_QUIT)//Quit game
             {
+
                 SDL_DestroyTexture(background);
-                background = NULL;
+                background = nullptr;
                 SDL_DestroyRenderer(renderer);
                 renderer = NULL;
                 quitSDL(window, renderer);
