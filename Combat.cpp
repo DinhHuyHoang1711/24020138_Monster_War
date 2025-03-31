@@ -143,7 +143,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_RenderFillRect(renderer, &GreenHpRect);
 
 
-            background = loadText(PlayerMonster[i].Name.c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            background = loadText(PlayerMonster[i].Name.c_str(), new SDL_Color ({0, 171, 255}), "arial.ttf", new int(15), renderer, background);
             SDL_Rect TextRect = {PlayerIdleX[i] + 50, 515, 0, 0};
             SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
@@ -175,7 +175,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             SDL_SetRenderDrawColor(renderer, 57, 232, 37, 255);
             SDL_RenderFillRect(renderer, &GreenHpRect);
 
-            background = loadText(EnemyMonster[i].Name.c_str(), new SDL_Color ({255, 255, 255}), "arial.ttf", new int(15), renderer, background);
+            background = loadText(EnemyMonster[i].Name.c_str(), new SDL_Color ({236, 21, 21}), "arial.ttf", new int(15), renderer, background);
             SDL_Rect TextRect = {EnemyIdleX[i] + 50, 515, 0, 0};
             SDL_QueryTexture(background, NULL, NULL, &TextRect.w, &TextRect.h);
             SDL_RenderCopy(renderer, background, NULL, &TextRect);
@@ -283,7 +283,7 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             }
         }
         SDL_RenderPresent(renderer);
-        SDL_Delay(10);
+        SDL_Delay(20);
         //Cap nhat hp
         for(int i = 0; i < EnemyHp.size(); i++)
         {

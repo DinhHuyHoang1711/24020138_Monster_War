@@ -1,15 +1,18 @@
 #include "Const.h"
 #include "CreateMap.h"
 #include "GameOn.h"
+#include "ShowInventory.h"
 const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
 
-vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Eater};
+vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Liquiz};
+vector <Monster> Inventory = {Eater, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz};
+vector <int> InventoryToSquad {0, 1, 2, 3, -1, -1, -1};
 
 Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2};
 int Money = 0;
-int Food = 0;
+int Food = 1000;
 
 int main(int argc, char *argv[])
 {
@@ -63,6 +66,11 @@ int main(int argc, char *argv[])
                             if(e.type == SDL_MOUSEBUTTONDOWN)
                             {
                                 MousePoint = {e.button.x, e.button.y};
+                                SDL_Rect BagRect = {800, 535, 60, 60};
+                                SDL_Rect GearRect = {870, 535, 60, 60};
+                                SDL_Rect MagnifierRect = {730, 535, 60, 60};
+
+                                //Click vao 1 man choi
                                 for(int i = 1; i <= TotalLevel; i++)
                                 {
                                     if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == false)
@@ -75,6 +83,13 @@ int main(int argc, char *argv[])
                                         UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
                                         break;
                                     }
+                                }
+
+                                //Mo Inventory
+                                if(SDL_PointInRect(&MousePoint, &BagRect))
+                                {
+                                    ShowInventory(renderer, window, Money, Food, PlayerMonster, Inventory, InventoryToSquad);
+                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
                                 }
                             }
                             if(e.type == SDL_QUIT)//Quit game

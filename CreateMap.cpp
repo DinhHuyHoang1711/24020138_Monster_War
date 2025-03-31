@@ -60,6 +60,13 @@ void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, i
     SDL_Rect GearRect = {870, 535, 60, 60};
     SDL_RenderCopy(renderer, background, NULL, &GearRect);
     SDL_DestroyTexture(background);
+
+    background = loadIMG("images\\Magnifier.png", renderer, background);
+    SDL_Rect MagnifierRect = {730, 535, 60, 60};
+    SDL_RenderCopy(renderer, background, NULL, &MagnifierRect);
+    SDL_DestroyTexture(background);
+
+
     background = nullptr;
     //Ve cac LV
     background = loadIMG((Lv[1].check == true) ? Lv[1].Button[2].c_str() : Lv[1].Button[1].c_str(), renderer, background);

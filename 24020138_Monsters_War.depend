@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1743360471 source:d:\24020138_monsters_war\main.cpp
+1743456477 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
 	"CreateMap.h"
 	"GameOn.h"
+	"ShowInventory.h"
 
 1743155067 source:d:\24020138_monsters_war\chukiham.cpp
 	"ChuKiHam.h"
@@ -10,7 +11,7 @@
 1743155067 d:\24020138_monsters_war\chukiham.h
 	"Const.h"
 
-1743261392 d:\24020138_monsters_war\const.h
+1743449573 d:\24020138_monsters_war\const.h
 	<iostream>
 	<cstdlib>
 	<ctime>
@@ -72,7 +73,7 @@
 1743262271 d:\24020138_monsters_war\gameon.h
 	"Const.h"
 
-1743327444 d:\24020138_monsters_war\monster.h
+1743456730 d:\24020138_monsters_war\monster.h
 	<iostream>
 	<cmath>
 	<algorithm>
@@ -83,7 +84,7 @@
 	<SDL_image.h>
 	<SDL_ttf.h>
 
-1743360205 source:d:\24020138_monsters_war\combat.cpp
+1743434605 source:d:\24020138_monsters_war\combat.cpp
 	"Combat.h"
 
 1743330141 d:\24020138_monsters_war\combat.h
@@ -99,11 +100,18 @@
 	"Const.h"
 	"BasicFunctions.h"
 
-1743360395 source:d:\24020138_monsters_war\createmap.cpp
+1743435089 source:d:\24020138_monsters_war\createmap.cpp
 	"CreateMap.h"
 	"Level.h"
 
 1743216950 d:\24020138_monsters_war\createmap.h
 	"Const.h"
 	"BasicFunctions.h"
+
+1743454974 source:d:\24020138_monsters_war\showinventory.cpp
+	"ShowInventory.h"
+
+1743441678 d:\24020138_monsters_war\showinventory.h
+	"Const.h"
+	"Monster.h"
 

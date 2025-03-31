@@ -45,6 +45,8 @@
 		<Unit filename="Images/giaodien.jpg" />
 		<Unit filename="Level.h" />
 		<Unit filename="Monster.h" />
+		<Unit filename="ShowInventory.cpp" />
+		<Unit filename="ShowInventory.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

@@ -238,12 +238,15 @@ struct Monster
     }
     void LevelUp()
     {
-        Level++;
-        BaseAtk += AtkPerLevel;
-        BaseHp += HpPerLevel;
-        BaseDef += DefPerLevel;
-        BaseAccuracy = min(BaseAccuracy + AccuracyPerLevel, 100);
-        BaseCritChance = min(BaseCritChance + CritChancePerLevel, 100);
+        if(Level < 10)
+        {
+            Level++;
+            BaseAtk += AtkPerLevel;
+            BaseHp += HpPerLevel;
+            BaseDef += DefPerLevel;
+            BaseAccuracy = min(BaseAccuracy + AccuracyPerLevel, 100);
+            BaseCritChance = min(BaseCritChance + CritChancePerLevel, 100);
+        }
     }
 };
 
