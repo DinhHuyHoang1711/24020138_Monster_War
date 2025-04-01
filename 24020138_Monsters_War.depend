@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1743456477 source:d:\24020138_monsters_war\main.cpp
+1743532200 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
 	"CreateMap.h"
 	"GameOn.h"
 	"ShowInventory.h"
+	"Shopping.h"
 
 1743155067 source:d:\24020138_monsters_war\chukiham.cpp
 	"ChuKiHam.h"
@@ -108,10 +109,17 @@
 	"Const.h"
 	"BasicFunctions.h"
 
-1743454974 source:d:\24020138_monsters_war\showinventory.cpp
+1743525173 source:d:\24020138_monsters_war\showinventory.cpp
 	"ShowInventory.h"
 
 1743441678 d:\24020138_monsters_war\showinventory.h
 	"Const.h"
 	"Monster.h"
+
+1743529096 d:\24020138_monsters_war\shopping.h
+	"Const.h"
+	"Monster.h"
+
+1743532189 source:d:\24020138_monsters_war\shopping.cpp
+	"Shopping.h"
 

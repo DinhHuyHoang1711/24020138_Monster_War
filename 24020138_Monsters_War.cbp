@@ -45,6 +45,8 @@
 		<Unit filename="Images/giaodien.jpg" />
 		<Unit filename="Level.h" />
 		<Unit filename="Monster.h" />
+		<Unit filename="Shopping.cpp" />
+		<Unit filename="Shopping.h" />
 		<Unit filename="ShowInventory.cpp" />
 		<Unit filename="ShowInventory.h" />
 		<Unit filename="main.cpp" />

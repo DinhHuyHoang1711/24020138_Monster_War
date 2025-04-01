@@ -2,6 +2,7 @@
 #include "CreateMap.h"
 #include "GameOn.h"
 #include "ShowInventory.h"
+#include "Shopping.h"
 const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
@@ -9,9 +10,10 @@ using namespace std;
 vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Liquiz};
 vector <Monster> Inventory = {Eater, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz};
 vector <int> InventoryToSquad {0, 1, 2, 3, -1, -1, -1};
+vector <Monster> MonsterList = {Eater, Eater, Liquiz, Liquiz, Eater, Liquiz, Eater, Liquiz};
 
 Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2};
-int Money = 0;
+int Money = 1000;
 int Food = 1000;
 
 int main(int argc, char *argv[])
@@ -89,6 +91,13 @@ int main(int argc, char *argv[])
                                 if(SDL_PointInRect(&MousePoint, &BagRect))
                                 {
                                     ShowInventory(renderer, window, Money, Food, PlayerMonster, Inventory, InventoryToSquad);
+                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                }
+
+                                //Mo Shop
+                                if(SDL_PointInRect(&MousePoint, &MagnifierRect))
+                                {
+                                    Shop(renderer, window, Money, Food, Inventory, InventoryToSquad, MonsterList);
                                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
                                 }
                             }

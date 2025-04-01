@@ -153,30 +153,6 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
         SDL_DestroyTexture(background);
         background = nullptr;
 
-        if(SDL_PollEvent(&e))
-        {
-            if(e.type == SDL_QUIT)
-            {
-                SDL_DestroyTexture(background);
-                background = nullptr;
-                SDL_DestroyRenderer(renderer);
-                renderer = nullptr;
-                quitSDL(window, renderer);
-                exit(1);
-            }
-            if (e.type == SDL_MOUSEWHEEL)
-            {
-                *ScrollOfSet += e.wheel.y * ScrollSpeed;
-            }
-            if(e.type == SDL_MOUSEBUTTONDOWN)
-            {
-                SDL_Point MousePoint = {e.button.x, e.button.y};
-                if(SDL_PointInRect(&MousePoint, &Xrect))
-                {
-                    break;
-                }
-            }
-        }
         vector <SDL_Rect> R1;
         vector <SDL_Rect> R2;
         vector <SDL_Rect> R3;
@@ -185,7 +161,7 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
         {
             R1.push_back({760, *y + *ScrollOfSet, 30, 30});
             R2.push_back({820, *y + *ScrollOfSet, 30, 30});
-            R3.push_back({880, *y + *ScrollOfSet, 70, 30});
+            R3.push_back({880, *y + *ScrollOfSet, 70, 40});
             *y += 50;
         }
 
@@ -279,15 +255,39 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
                 SDL_DestroyTexture(background);
                 background = nullptr;
 
+                I = {960, *y + *ScrollOfSet + 15, 20, 20};
+                background = loadIMG("images\\Food.png", renderer, background);
+                SDL_RenderCopy(renderer, background, NULL, &I);
+                SDL_DestroyTexture(background);
+                background = nullptr;
+
+
             }
             *y += 50;
         }
         //Them, Bot Monster ra khoi doi hinh, nang cap Monster
         if(SDL_PollEvent(&e))
         {
+            if(e.type == SDL_QUIT)
+            {
+                SDL_DestroyTexture(background);
+                background = nullptr;
+                SDL_DestroyRenderer(renderer);
+                renderer = nullptr;
+                quitSDL(window, renderer);
+                exit(1);
+            }
+            if (e.type == SDL_MOUSEWHEEL)
+            {
+                *ScrollOfSet += e.wheel.y * ScrollSpeed;
+            }
             if(e.type == SDL_MOUSEBUTTONDOWN)
             {
                 SDL_Point MousePoint = {e.button.x, e.button.y};
+                if(SDL_PointInRect(&MousePoint, &Xrect))
+                {
+                    break;
+                }
                 for(int i = 0; i < Inventory.size(); i++)
                 {
                     //Them, Bot Monster ra khoi doi hinh
@@ -370,9 +370,12 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
         delete y;
         y = nullptr;
         SDL_RenderPresent(renderer);
+        SDL_Delay(16);
 
     }
     delete ScrollOfSet;
     ScrollOfSet = nullptr;
+    SDL_DestroyTexture(background);
+    background = nullptr;
     return;
 }
