@@ -265,69 +265,43 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
             }
             *y += 50;
         }
+        SDL_RenderPresent(renderer);
+        bool *ok = new bool(true);
         //Them, Bot Monster ra khoi doi hinh, nang cap Monster
-        if(SDL_PollEvent(&e))
+        while (*ok)
         {
-            if(e.type == SDL_QUIT)
+
+            if(SDL_PollEvent(&e))
             {
-                SDL_DestroyTexture(background);
-                background = nullptr;
-                SDL_DestroyRenderer(renderer);
-                renderer = nullptr;
-                quitSDL(window, renderer);
-                exit(1);
-            }
-            if (e.type == SDL_MOUSEWHEEL)
-            {
-                *ScrollOfSet += e.wheel.y * ScrollSpeed;
-            }
-            if(e.type == SDL_MOUSEBUTTONDOWN)
-            {
-                SDL_Point MousePoint = {e.button.x, e.button.y};
-                if(SDL_PointInRect(&MousePoint, &Xrect))
+                if(e.type == SDL_QUIT)
                 {
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
+                    SDL_DestroyRenderer(renderer);
+                    renderer = nullptr;
+                    quitSDL(window, renderer);
+                    exit(1);
+                }
+                if (e.type == SDL_MOUSEWHEEL)
+                {
+                    *ScrollOfSet += e.wheel.y * ScrollSpeed;
                     break;
                 }
-                for(int i = 0; i < Inventory.size(); i++)
+                if(e.type == SDL_MOUSEBUTTONDOWN)
                 {
-                    //Them, Bot Monster ra khoi doi hinh
-                    if(SDL_PointInRect(&MousePoint, &R1[i]) && R1[i].y >= 190)
+                    SDL_Point MousePoint = {e.button.x, e.button.y};
+                    if(SDL_PointInRect(&MousePoint, &Xrect))
                     {
-                        if(InventoryToSquad[i] != -1) // Trong doi hinh
-                        {
-                            PlayerMonster.erase(PlayerMonster.begin() + InventoryToSquad[i]);
-                            for(int j = 0; j < Inventory.size(); j++)
-                            {
-                                if(j != i && InventoryToSquad[j] != -1 && InventoryToSquad[j] > InventoryToSquad[i])
-                                {
-                                    InventoryToSquad[j] -= 1;
-                                }
-                            }
-                            InventoryToSquad[i] = -1; //Khong con trong doi hinh
-                        }
-                        else //Khong trong doi hinh
-                        {
-                            if(PlayerMonster.size() < MaxTeamMember)// Con cho trong trong doi hinh
-                            {
-                                PlayerMonster.push_back(Inventory[i]);
-                                InventoryToSquad[i] = PlayerMonster.size() - 1;
-                            }
-                            else// Het cho trong doi hinh
-                            {
-                                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Team is full!", "Đội hình đầy chỗ rồi!", window);
-                            }
-                        }
-                        break;
+                        return;
                     }
-                    //Duoi Monster ra khoi Inventory (Tuc la cho Monster Cook vinh vien !!!!)
-                    if(SDL_PointInRect(&MousePoint, &R2[i]) && R2[i].y >= 190)
+                    for(int i = 0; i < Inventory.size(); i++)
                     {
-                        if(Inventory.size() > 1) // Duoi het Monster di thi lay j choi game???
+                        //Them, Bot Monster ra khoi doi hinh
+                        if(SDL_PointInRect(&MousePoint, &R1[i]) && R1[i].y >= 190)
                         {
-                            if(InventoryToSquad[i] != -1)// Trong doi hinh
+                            if(InventoryToSquad[i] != -1) // Trong doi hinh
                             {
                                 PlayerMonster.erase(PlayerMonster.begin() + InventoryToSquad[i]);
-
                                 for(int j = 0; j < Inventory.size(); j++)
                                 {
                                     if(j != i && InventoryToSquad[j] != -1 && InventoryToSquad[j] > InventoryToSquad[i])
@@ -335,42 +309,89 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
                                         InventoryToSquad[j] -= 1;
                                     }
                                 }
+                                InventoryToSquad[i] = -1; //Khong con trong doi hinh
+                                *ok = false;
+                                break;
                             }
-                            Inventory.erase(Inventory.begin() + i);
-                            InventoryToSquad.erase(InventoryToSquad.begin() + i);
+                            else //Khong trong doi hinh
+                            {
+                                if(PlayerMonster.size() < MaxTeamMember)// Con cho trong trong doi hinh
+                                {
+                                    PlayerMonster.push_back(Inventory[i]);
+                                    InventoryToSquad[i] = PlayerMonster.size() - 1;
+                                    *ok = false;
+                                    break;
+                                }
+                                else// Het cho trong doi hinh
+                                {
+                                    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Team is full!", "Đội hình đầy chỗ rồi!", window);
+                                    *ok = false;
+                                    break;
+                                }
+                            }
+
                         }
-                        else
+                        //Duoi Monster ra khoi Inventory (Tuc la cho Monster Cook vinh vien !!!!)
+                        if(SDL_PointInRect(&MousePoint, &R2[i]) && R2[i].y >= 190)
                         {
-                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Không được đuổi hết Monster ra khỏi đội!", window);
+                            if(Inventory.size() > 1) // Duoi het Monster di thi lay j choi game???
+                            {
+                                if(InventoryToSquad[i] != -1)// Trong doi hinh
+                                {
+                                    PlayerMonster.erase(PlayerMonster.begin() + InventoryToSquad[i]);
+
+                                    for(int j = 0; j < Inventory.size(); j++)
+                                    {
+                                        if(j != i && InventoryToSquad[j] != -1 && InventoryToSquad[j] > InventoryToSquad[i])
+                                        {
+                                            InventoryToSquad[j] -= 1;
+                                        }
+                                    }
+                                }
+                                Inventory.erase(Inventory.begin() + i);
+                                InventoryToSquad.erase(InventoryToSquad.begin() + i);
+                                *ok = false;
+                                break;
+                            }
+                            else
+                            {
+                                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Không được đuổi hết Monster ra khỏi đội!", window);
+                                *ok = false;
+                                break;
+                            }
+
                         }
-                        break;
-                    }
-                    if(SDL_PointInRect(&MousePoint, &R3[i]) && R3[i].y >= 190)
-                    {
-                        if(Food >= Inventory[i].UpgradeCost && Inventory[i].Level < 10)
+                        if(SDL_PointInRect(&MousePoint, &R3[i]) && R3[i].y >= 190)
                         {
-                            Food -= Inventory[i].UpgradeCost;
-                            Inventory[i].LevelUp();
-                            if(InventoryToSquad[i] != -1) PlayerMonster[InventoryToSquad[i]].LevelUp();
-                        }
-                        else
-                        {
-                            if(Inventory[i].Level == 10) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops!", "Đã đạt cấp tối đa", window);
-                            else SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops!!!", "Không đủ Food! Đi cày thêm đi!", window);
+                            if(Food >= Inventory[i].UpgradeCost && Inventory[i].Level < 10)
+                            {
+                                Food -= Inventory[i].UpgradeCost;
+                                Inventory[i].LevelUp();
+                                if(InventoryToSquad[i] != -1) PlayerMonster[InventoryToSquad[i]].LevelUp();
+                                *ok = false;
+                                break;
+                            }
+                            else
+                            {
+                                if(Inventory[i].Level == 10) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops!", "Đã đạt cấp tối đa", window);
+                                else SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops!!!", "Không đủ Food! Đi cày thêm đi!", window);
+                                *ok = false;
+                                break;
+                            }
+
                         }
                     }
                 }
             }
         }
-
-
+        delete ok;
+        ok = nullptr;
         R1.clear();
         R2.clear();
         R3.clear();
         delete y;
         y = nullptr;
-        SDL_RenderPresent(renderer);
-        SDL_Delay(16);
+        SDL_Delay(10);
 
     }
     delete ScrollOfSet;

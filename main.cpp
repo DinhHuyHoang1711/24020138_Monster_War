@@ -78,6 +78,7 @@ int main(int argc, char *argv[])
                                     if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == false)
                                     {
                                         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Chưa mở khóa level này.", "Bạn cần hoàn thành level trước đó.", window);
+                                        break;
                                     }
                                     if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == true)
                                     {
@@ -92,6 +93,7 @@ int main(int argc, char *argv[])
                                 {
                                     ShowInventory(renderer, window, Money, Food, PlayerMonster, Inventory, InventoryToSquad);
                                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                    break;
                                 }
 
                                 //Mo Shop
@@ -99,16 +101,13 @@ int main(int argc, char *argv[])
                                 {
                                     Shop(renderer, window, Money, Food, Inventory, InventoryToSquad, MonsterList);
                                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                    break;
                                 }
-                            }
-                            if(e.type == SDL_QUIT)//Quit game
-                            {
-                                SDL_DestroyTexture(background);
-                                background = NULL;
-                                SDL_DestroyRenderer(renderer);
-                                renderer = NULL;
-                                quitSDL(window, renderer);
-                                return 0;
+                                //Mo Setting
+                                if(SDL_PointInRect(&MousePoint, &GearRect))
+                                {
+                                    break;
+                                }
                             }
                         }
                     }

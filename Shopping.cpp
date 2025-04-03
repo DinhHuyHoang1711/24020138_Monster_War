@@ -249,90 +249,105 @@ void Shop(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& Food, vec
 
             *y += 50;
         }
-        if(SDL_PollEvent(&e))
+        SDL_RenderPresent(renderer);
+        bool *ok =  new bool(true);
+        while (*ok)
         {
-            if(e.type == SDL_QUIT)
+            if(SDL_PollEvent(&e))
             {
-                SDL_DestroyTexture(background);
-                background = nullptr;
-                SDL_DestroyRenderer(renderer);
-                renderer = nullptr;
-                quitSDL(window, renderer);
-                exit(1);
-            }
-            if(e.type == SDL_MOUSEBUTTONDOWN)
-            {
-                SDL_Point MousePoint = {e.button.x, e.button.y};
-                if(SDL_PointInRect(&MousePoint, &Xrect))
+                if(e.type == SDL_QUIT)
                 {
-                    break;
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
+                    SDL_DestroyRenderer(renderer);
+                    renderer = nullptr;
+                    quitSDL(window, renderer);
+                    exit(1);
                 }
-                if(SDL_PointInRect(&MousePoint, &GoldToFoodRect))
+                if(e.type == SDL_MOUSEBUTTONDOWN)
                 {
-                    if(Money >= 100)
+                    SDL_Point MousePoint = {e.button.x, e.button.y};
+                    if(SDL_PointInRect(&MousePoint, &Xrect))
                     {
-                        Money -= 100;
-                        Food += 80;
+                        return;
                     }
-                    else
+                    if(SDL_PointInRect(&MousePoint, &GoldToFoodRect))
                     {
-                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ Gold", window);
-                    }
-                }
-                if(SDL_PointInRect(&MousePoint, &FoodToGoldRect))
-                {
-                    if(Food >= 100)
-                    {
-                        Food -= 100;
-                        Money += 80;
-                    }
-                    else
-                    {
-                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ Food", window);
-                    }
-                }
-                if(SDL_PointInRect(&MousePoint, &RollButton))
-                {
-                    if(Money >= 300)
-                    {
-                        ShopItem.clear();
-                        Money -= 300;
-                        for(int i = 1; i <= 5; i++)
+                        if(Money >= 100)
                         {
-                            ShopItem.push_back(MonsterList[rand() % (MonsterList.size())]);
+                            Money -= 100;
+                            Food += 80;
+                            break;
+                        }
+                        else
+                        {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ Gold", window);
+                            break;
                         }
                     }
-                    else
+                    if(SDL_PointInRect(&MousePoint, &FoodToGoldRect))
                     {
-                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ vàng", window);
-                    }
-                }
-                for(int i = 0; i < BuyRect.size(); i++)
-                {
-                    if(SDL_PointInRect(&MousePoint, &BuyRect[i]))
-                    {
-                        if(Money >= ShopItem[i].UpgradeCost)
+                        if(Food >= 100)
                         {
-                            Money -= ShopItem[i].UpgradeCost;
-                            Inventory.push_back(ShopItem[i]);
-                            InventoryToSquad.push_back(-1);
-                            ShopItem.erase(ShopItem.begin() + i);
-                            BuyRect.erase(BuyRect.begin() + i);
+                            Food -= 100;
+                            Money += 80;
+                            break;
+                        }
+                        else
+                        {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ Food", window);
+                            break;
+                        }
+                    }
+                    if(SDL_PointInRect(&MousePoint, &RollButton))
+                    {
+                        if(Money >= 300)
+                        {
+                            ShopItem.clear();
+                            Money -= 300;
+                            for(int i = 1; i <= 5; i++)
+                            {
+                                ShopItem.push_back(MonsterList[rand() % (MonsterList.size())]);
+                            }
+                            break;
                         }
                         else
                         {
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ vàng", window);
+                            break;
                         }
-                        break;
+                    }
+                    for(int i = 0; i < BuyRect.size(); i++)
+                    {
+                        if(SDL_PointInRect(&MousePoint, &BuyRect[i]))
+                        {
+                            if(Money >= ShopItem[i].UpgradeCost)
+                            {
+                                Money -= ShopItem[i].UpgradeCost;
+                                Inventory.push_back(ShopItem[i]);
+                                InventoryToSquad.push_back(-1);
+                                ShopItem.erase(ShopItem.begin() + i);
+                                BuyRect.erase(BuyRect.begin() + i);
+                                *ok = false;
+                                break;
+                            }
+                            else
+                            {
+                                SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Ooops", "Không đủ vàng", window);
+                                *ok = false;
+                                break;
+                            }
+                        }
                     }
                 }
             }
-        }
+            SDL_Delay(16);
+       }
         BuyRect.clear();
         delete y;
         y = nullptr;
-        SDL_RenderPresent(renderer);
-        SDL_Delay(16);
+        delete ok;
+        ok = nullptr;
     }
     ShopItem.clear();
 }
