@@ -3,6 +3,7 @@
 
 void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& Food, vector <Monster> &PlayerMonster, vector <Monster> &Inventory, vector <int> &InventoryToSquad)
 {
+    Mix_Chunk *click = Mix_LoadWAV("Sounds\\MouseClick.mp3");
     SDL_Texture* background;
     SDL_Event e;
     SDL_Rect TextRect;
@@ -279,6 +280,9 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
                     background = nullptr;
                     SDL_DestroyRenderer(renderer);
                     renderer = nullptr;
+                    Mix_FreeChunk(click);
+                    click = nullptr;
+                    Mix_CloseAudio();
                     quitSDL(window, renderer);
                     exit(1);
                 }
@@ -289,6 +293,7 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
                 }
                 if(e.type == SDL_MOUSEBUTTONDOWN)
                 {
+                    Mix_PlayChannel(-1, click, 0);
                     SDL_Point MousePoint = {e.button.x, e.button.y};
                     if(SDL_PointInRect(&MousePoint, &Xrect))
                     {
@@ -398,5 +403,7 @@ void ShowInventory(SDL_Renderer* renderer, SDL_Window* window, int &Money, int& 
     ScrollOfSet = nullptr;
     SDL_DestroyTexture(background);
     background = nullptr;
+    Mix_FreeChunk(click);
+    click = nullptr;
     return;
 }

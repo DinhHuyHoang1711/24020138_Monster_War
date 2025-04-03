@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1743691131 source:d:\24020138_monsters_war\main.cpp
+1743703448 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
 	"CreateMap.h"
 	"GameOn.h"
@@ -69,11 +69,11 @@
 	<vector>
 	"Monster.h"
 
-1743356250 source:d:\24020138_monsters_war\gameon.cpp
+1743703563 source:d:\24020138_monsters_war\gameon.cpp
 	"GameOn.h"
 	"Combat.h"
 
-1743262271 d:\24020138_monsters_war\gameon.h
+1743702887 d:\24020138_monsters_war\gameon.h
 	"Const.h"
 
 1743691016 d:\24020138_monsters_war\monster.h
@@ -88,7 +88,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1743434605 source:d:\24020138_monsters_war\combat.cpp
+1743702399 source:d:\24020138_monsters_war\combat.cpp
 	"Combat.h"
 
 1743330141 d:\24020138_monsters_war\combat.h
@@ -112,7 +112,7 @@
 	"Const.h"
 	"BasicFunctions.h"
 
-1743689940 source:d:\24020138_monsters_war\showinventory.cpp
+1743702399 source:d:\24020138_monsters_war\showinventory.cpp
 	"ShowInventory.h"
 
 1743441678 d:\24020138_monsters_war\showinventory.h
@@ -123,6 +123,6 @@
 	"Const.h"
 	"Monster.h"
 
-1743689264 source:d:\24020138_monsters_war\shopping.cpp
+1743702399 source:d:\24020138_monsters_war\shopping.cpp
 	"Shopping.h"
 

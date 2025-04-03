@@ -2,9 +2,15 @@
 
 bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* renderer, SDL_Window* window)
 {
+    Mix_Music* music;
+    music = Mix_LoadMUS("Sounds\\CombatMusic.mp3");
+    Mix_PlayMusic(music, -1);
+
     SDL_Event e;
     SDL_Rect MenuRect = {0, 500, SCREEN_WIDTH, 100};
     SDL_Texture* background;
+
+    Mix_Chunk *click = Mix_LoadWAV("Sounds\\MouseClick.mp3");
 
     vector <Monster> EnemyMonster;
     for(auto x : Lv.M)
@@ -73,20 +79,50 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         {
             if(e.type == SDL_QUIT)
             {
+                Mix_FreeMusic(music);
+                music = nullptr;
+                Mix_FreeChunk(click);
+                click = nullptr;
                 SDL_DestroyTexture(background);
                 background = nullptr;
                 SDL_DestroyRenderer(renderer);
                 renderer = nullptr;
                 quitSDL(window, renderer);
+                Mix_CloseAudio();
                 exit(1);
             }
             if(e.type == SDL_MOUSEBUTTONDOWN)
             {
+                Mix_PlayChannel(-1, click, 0);
                 SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &SurrenderButton))
                 {
+                    SDL_Delay(500);
+                    Mix_FreeMusic(music);
+                    music = nullptr;
+                    Mix_FreeChunk(click);
+                    click = nullptr;
                     SDL_DestroyTexture(background);
                     background = nullptr;
+                    PlayerHp.clear();
+                    EnemyHp.clear();
+                    PlayerDamaged.clear();
+                    EnemyDamaged.clear();
+                    PlayerRect.clear();
+                    EnemyRect.clear();
+                    EnemyMonster.clear();
+                    PlayerCanMove.clear();
+                    EnemyCanMove.clear();
+                    PlayerIdleX.clear();
+                    EnemyIdleX.clear();
+                    delete EnemyTotalHp;
+                    delete X;
+                    delete Y;
+                    delete ok;
+                    EnemyTotalHp = NULL;
+                    X = NULL;
+                    Y = NULL;
+                    ok = NULL;
                     *PlayerTotalHp = 0;
                     break;
                 }
@@ -427,6 +463,11 @@ bool Combat(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
         SDL_DestroyTexture(background);
         background = nullptr;
     }
+
+    Mix_FreeMusic(music);
+    music = nullptr;
+    Mix_FreeChunk(click);
+    click = nullptr;
     SDL_DestroyTexture(background);
     background = nullptr;
     PlayerHp.clear();

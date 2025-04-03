@@ -1,8 +1,9 @@
 #include "GameOn.h"
 #include "Combat.h"
 
-void GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* renderer, SDL_Window* window, int &Money, int &Food)
+bool GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* renderer, SDL_Window* window, int &Money, int &Food)
 {
+    Mix_Chunk *click = Mix_LoadWAV("Sounds\\MouseClick.mp3");
     SDL_Texture* background;
     background = loadIMG(Lv.PopUpImage.c_str(), renderer, background);
     SDL_RenderCopy(renderer, background, NULL, &Lv.PopUpRect);
@@ -34,17 +35,21 @@ void GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                 background = nullptr;
                 SDL_DestroyRenderer(renderer);
                 renderer = NULL;
+                Mix_FreeChunk(click);
+                click = nullptr;
+                Mix_CloseAudio();
                 quitSDL(window, renderer);
                 exit(1);
             }
             if(e.type == SDL_MOUSEBUTTONDOWN)
             {
+                Mix_PlayChannel(-1, click, 0);
                 SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &QuitButton))
                 {
                     SDL_DestroyTexture(background);
                     background = NULL;
-                    return;
+                    return 0;
                 }
                 if(SDL_PointInRect(&MousePoint, &StartButton))
                 {
@@ -69,7 +74,7 @@ void GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                         SDL_Delay(1000);
                         SDL_DestroyTexture(background);
                         background = NULL;
-                        return;
+                        return 1;
                     }
                     else
                     {
@@ -80,7 +85,7 @@ void GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                         background = nullptr;
                         SDL_RenderPresent(renderer);
                         SDL_Delay(1000);
-                        return;
+                        return 1;
                         SDL_DestroyTexture(background);
                         background = NULL;
                     }
@@ -88,6 +93,9 @@ void GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
             }
         }
     }
+    Mix_FreeChunk(click);
+    click = nullptr;
+    return 0;
 }
 
 

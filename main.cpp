@@ -18,12 +18,21 @@ int Food = 1000;
 
 int main(int argc, char *argv[])
 {
+    //Setup
     srand(time(0));
     Lv[0].check = true;
     SDL_Window* window;
     window = initSDL(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     SDL_Renderer* renderer = createRenderer(window);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+    //Nhac nen
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    Mix_Music* music;
+    music = Mix_LoadMUS("Sounds\\BackgroundMusic.mp3");
+    Mix_PlayMusic(music, -1);
+
+    Mix_Chunk *click = Mix_LoadWAV("Sounds\\MouseClick.mp3");
 
     //Hien thi giao dien vao game
     SDL_Texture* background;
@@ -43,6 +52,7 @@ int main(int argc, char *argv[])
     SDL_Event e;
     while (true)
     {
+        bool *ok = new bool(true);
         if (SDL_PollEvent(&e))
         {
             if(e.type == SDL_QUIT)//Quit game
@@ -51,22 +61,44 @@ int main(int argc, char *argv[])
                 SDL_DestroyTexture(background);
                 background = nullptr;
                 SDL_DestroyRenderer(renderer);
-                renderer = NULL;
+                renderer = nullptr;
+                Mix_FreeMusic(music);
+                music = nullptr;
+                Mix_FreeChunk(click);
+                click = nullptr;
+                Mix_CloseAudio();
                 quitSDL(window, renderer);
                 return 0;
             }
             if(e.type == SDL_MOUSEBUTTONDOWN)//Start game
             {
+                Mix_PlayChannel(-1, click, 0);
                 SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &StartRect))
                 {
                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);//Cap nhat map, money, food
-                    while(true)
+                    while(*ok)
                     {
                         if(SDL_PollEvent(&e))
                         {
+                            if(e.type == SDL_QUIT)//Quit game
+                            {
+                                SDL_DestroyTexture(background);
+                                background = nullptr;
+                                SDL_DestroyRenderer(renderer);
+                                renderer = nullptr;
+                                Mix_FreeMusic(music);
+                                music = nullptr;
+                                Mix_FreeChunk(click);
+                                click = nullptr;
+                                Mix_CloseAudio();
+                                quitSDL(window, renderer);
+                                return 0;
+                            }
                             if(e.type == SDL_MOUSEBUTTONDOWN)
                             {
+                                Mix_PlayChannel(-1, click, 0);
+
                                 MousePoint = {e.button.x, e.button.y};
                                 SDL_Rect BagRect = {800, 535, 60, 60};
                                 SDL_Rect GearRect = {870, 535, 60, 60};
@@ -82,9 +114,16 @@ int main(int argc, char *argv[])
                                     }
                                     if(SDL_PointInRect(&MousePoint, &Lv[i].Rect) && Lv[i - 1].check == true)
                                     {
-                                        GameOn(Lv[i], PlayerMonster, renderer, window, Money, Food);
+                                        bool* k = new bool(true);
+                                        *k = GameOn(Lv[i], PlayerMonster, renderer, window, Money, Food);
                                         UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
-                                        break;
+                                        if(*k)
+                                        {
+                                            music = Mix_LoadMUS("Sounds\\BackgroundMusic.mp3");
+                                            Mix_PlayMusic(music, -1);
+                                        }
+                                        delete k;
+                                        k = nullptr;
                                     }
                                 }
 
@@ -93,7 +132,6 @@ int main(int argc, char *argv[])
                                 {
                                     ShowInventory(renderer, window, Money, Food, PlayerMonster, Inventory, InventoryToSquad);
                                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
-                                    break;
                                 }
 
                                 //Mo Shop
@@ -101,20 +139,41 @@ int main(int argc, char *argv[])
                                 {
                                     Shop(renderer, window, Money, Food, Inventory, InventoryToSquad, MonsterList);
                                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
-                                    break;
                                 }
                                 //Mo Setting
                                 if(SDL_PointInRect(&MousePoint, &GearRect))
                                 {
-                                    break;
+                                    *ok = false;
+                                    background = loadIMG("images\\giaodien.jpg", renderer, background);
+                                    SDL_RenderCopy(renderer, background, NULL, NULL);
+                                    SDL_DestroyTexture(background);
+                                    background = nullptr;
+
+                                    background = loadText("START", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+                                    SDL_RenderCopy(renderer, background, NULL, &StartRect);
+                                    SDL_DestroyTexture(background);
+                                    background = nullptr;
+                                    SDL_RenderPresent(renderer);
                                 }
                             }
                         }
                     }
-
                 }
             }
         }
+        delete ok;
+        ok = nullptr;
     }
+    SDL_DestroyTexture(background);
+    background = nullptr;
+    SDL_DestroyRenderer(renderer);
+    renderer = nullptr;
+    Mix_FreeMusic(music);
+    music = nullptr;
+    Mix_FreeChunk(click);
+    click = nullptr;
+    Mix_CloseAudio();
+    quitSDL(window, renderer);
+    return 0;
 }
 
