@@ -62,9 +62,17 @@ bool GameOn(Level &Lv, const vector <Monster> &PlayerMonster, SDL_Renderer* rend
                     bool result = Combat(Lv, PlayerMonster, renderer, window);
                     if(result)
                     {
-                        Money += Lv.Money;
-                        Food += Lv.Food;
-                        Lv.check = true;
+                        if(Lv.check == false)
+                        {
+                            Money += Lv.Money;
+                            Food += Lv.Food;
+                            Lv.check = true;
+                        }
+                        else
+                        {
+                            Money += Lv.Money2;
+                            Food += Lv.Food2;
+                        }
                         SDL_RenderClear(renderer);
                         background = loadIMG("images\\WinScene.png", renderer, background);
                         SDL_RenderCopy(renderer, background, NULL, NULL);

@@ -2,24 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Monster.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="219" topLine="0" />
+			<Cursor1 position="7002" topLine="148" />
 		</Cursor>
 	</File>
-	<File name="Shopping.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
+	<File name="Level.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="200" topLine="0" />
+			<Cursor1 position="2803" topLine="57" />
 		</Cursor>
 	</File>
-	<File name="GameOn.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
+	<File name="CreateMap.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1095" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="CreateMap.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3706" topLine="0" />
+			<Cursor1 position="175" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Combat.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,19 +22,24 @@
 			<Cursor1 position="12" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="ShowInventory.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
+	<File name="ShowInventory.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="13796" topLine="268" />
 		</Cursor>
 	</File>
-	<File name="Shopping.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
+	<File name="CreateMap.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="12522" topLine="306" />
+			<Cursor1 position="3684" topLine="79" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
+	<File name="GameOn.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7416" topLine="152" />
+			<Cursor1 position="2617" topLine="61" />
+		</Cursor>
+	</File>
+	<File name="Shopping.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12522" topLine="306" />
 		</Cursor>
 	</File>
 	<File name="ShowInventory.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,14 +47,9 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Level.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+	<File name="Monster.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="200" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Combat.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2638" topLine="376" />
+			<Cursor1 position="13048" topLine="383" />
 		</Cursor>
 	</File>
 	<File name="BasicFunctions.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
@@ -62,19 +57,29 @@
 			<Cursor1 position="668" topLine="12" />
 		</Cursor>
 	</File>
+	<File name="BasicFunctions.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2730" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="Combat.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-7" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2638" topLine="376" />
+		</Cursor>
+	</File>
 	<File name="Const.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="257" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="BasicFunctions.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2730" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="GameOn.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="GameOn.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="64" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Shopping.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="-6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="200" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

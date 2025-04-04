@@ -7,14 +7,15 @@ const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
 
-vector <Monster> PlayerMonster = {Eater, Liquiz, Liquiz, Liquiz};
-vector <Monster> Inventory = {Eater, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz, Liquiz};
-vector <int> InventoryToSquad {0, 1, 2, 3, -1, -1, -1};
-vector <Monster> MonsterList = {Eater, Eater, Liquiz, Liquiz, Eater, Liquiz, Eater, Liquiz};
+vector <Monster> PlayerMonster = {Liquiz};
+vector <Monster> Inventory = {Liquiz};
+vector <int> InventoryToSquad = {0};
+vector <Monster> MonsterList = {Liquiz, Eater, Magma, Crops};
 
-Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2};
-int Money = 1000;
-int Food = 1000;
+Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2, Lv3, Lv4, Lv5, Lv6, Lv7, Lv8, Lv9, Lv10, Lv11};
+Level LvHard[TotalHardLevel + 1] = {Lv0, LvHard1};
+int Money = 100;
+int Food = 100;
 
 int main(int argc, char *argv[])
 {
@@ -41,11 +42,25 @@ int main(int argc, char *argv[])
     SDL_DestroyTexture(background);
     background = nullptr;
 
-    SDL_Rect StartRect = {450, 400, 100, 50};
+    SDL_Rect StartRect = {450, 350, 100, 50};
     background = loadText("START", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
     SDL_RenderCopy(renderer, background, NULL, &StartRect);
     SDL_DestroyTexture(background);
     background = nullptr;
+
+    SDL_Rect NewGameRect = {450, 410, 150, 50};
+    background = loadText("NEW GAME", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+    SDL_RenderCopy(renderer, background, NULL, &NewGameRect);
+    SDL_DestroyTexture(background);
+    background = nullptr;
+
+    SDL_Rect QuitGameRect = {450, 470, 80, 50};
+    background = loadText("QUIT", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+    SDL_RenderCopy(renderer, background, NULL, &QuitGameRect);
+    SDL_DestroyTexture(background);
+    background = nullptr;
+
+
     SDL_RenderPresent(renderer);
 
     //Kiem tra thoat game hoac start
@@ -74,9 +89,23 @@ int main(int argc, char *argv[])
             {
                 Mix_PlayChannel(-1, click, 0);
                 SDL_Point MousePoint = {e.button.x, e.button.y};
-                if(SDL_PointInRect(&MousePoint, &StartRect))
+                if(SDL_PointInRect(&MousePoint, &StartRect) || SDL_PointInRect(&MousePoint, &NewGameRect))
                 {
-                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);//Cap nhat map, money, food
+                    if(SDL_PointInRect(&MousePoint, &NewGameRect))
+                    {
+                        PlayerMonster = {Liquiz};
+                        Inventory = {Liquiz};
+                        InventoryToSquad = {0};
+                        Money = 100;
+                        Food = 100;
+                        for(int i = 1; i <= TotalLevel; i++)
+                        {
+                            Lv[i].check = false;
+                        }
+                    }
+
+                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);//Cap nhat map, money, food
+
                     while(*ok)
                     {
                         if(SDL_PollEvent(&e))
@@ -116,7 +145,7 @@ int main(int argc, char *argv[])
                                     {
                                         bool* k = new bool(true);
                                         *k = GameOn(Lv[i], PlayerMonster, renderer, window, Money, Food);
-                                        UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                        UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);
                                         if(*k)
                                         {
                                             music = Mix_LoadMUS("Sounds\\BackgroundMusic.mp3");
@@ -126,19 +155,35 @@ int main(int argc, char *argv[])
                                         k = nullptr;
                                     }
                                 }
-
+                                //Click vao level hard
+                                for(int i = 1; i <= TotalHardLevel; i++)
+                                {
+                                    if(SDL_PointInRect(&MousePoint, &LvHard[i].Rect))
+                                    {
+                                        bool* k = new bool(true);
+                                        *k = GameOn(LvHard[i], PlayerMonster, renderer, window, Money, Food);
+                                        UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);
+                                        if(*k)
+                                        {
+                                            music = Mix_LoadMUS("Sounds\\BackgroundMusic.mp3");
+                                            Mix_PlayMusic(music, -1);
+                                        }
+                                        delete k;
+                                        k = nullptr;
+                                    }
+                                }
                                 //Mo Inventory
                                 if(SDL_PointInRect(&MousePoint, &BagRect))
                                 {
                                     ShowInventory(renderer, window, Money, Food, PlayerMonster, Inventory, InventoryToSquad);
-                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);
                                 }
 
                                 //Mo Shop
                                 if(SDL_PointInRect(&MousePoint, &MagnifierRect))
                                 {
                                     Shop(renderer, window, Money, Food, Inventory, InventoryToSquad, MonsterList);
-                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel);
+                                    UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);
                                 }
                                 //Mo Setting
                                 if(SDL_PointInRect(&MousePoint, &GearRect))
@@ -153,11 +198,36 @@ int main(int argc, char *argv[])
                                     SDL_RenderCopy(renderer, background, NULL, &StartRect);
                                     SDL_DestroyTexture(background);
                                     background = nullptr;
+
+                                    background = loadText("NEW GAME", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+                                    SDL_RenderCopy(renderer, background, NULL, &NewGameRect);
+                                    SDL_DestroyTexture(background);
+                                    background = nullptr;
+
+                                    background = loadText("QUIT", new SDL_Color ({63, 20, 202}), "BASKVILL.TTF", new int(40), renderer, background);
+                                    SDL_RenderCopy(renderer, background, NULL, &QuitGameRect);
+                                    SDL_DestroyTexture(background);
+                                    background = nullptr;
+
                                     SDL_RenderPresent(renderer);
                                 }
                             }
                         }
                     }
+                }
+                if(SDL_PointInRect(&MousePoint, &QuitGameRect))
+                {
+                    SDL_DestroyTexture(background);
+                    background = nullptr;
+                    SDL_DestroyRenderer(renderer);
+                    renderer = nullptr;
+                    Mix_FreeMusic(music);
+                    music = nullptr;
+                    Mix_FreeChunk(click);
+                    click = nullptr;
+                    Mix_CloseAudio();
+                    quitSDL(window, renderer);
+                    return 0;
                 }
             }
         }

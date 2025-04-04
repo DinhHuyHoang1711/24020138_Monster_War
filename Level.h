@@ -57,7 +57,21 @@ struct Level
     }
 };
 
-const int TotalLevel = 2;
+//Cap do binh thuong
+const int TotalLevel = 11;
 const Level Lv0(0, 0);
-const Level Lv1(1, 500, 300, 100, 100, 20, 20, "images\\Plain.jpg", "images\\Lv1PopUp.png", {Squishee, Hungtree, Squishee, Hungtree});
-const Level Lv2(2, 460, 260, 100, 100, 20, 20, "images\\Plain.jpg", "images\\LV1PopUp.png", {Squishee});
+const Level Lv1(1, 500, 300, 200, 200, 50, 50, "images\\Plain.jpg", "images\\Lv1PopUp.png", {Squishee});
+const Level Lv2(2, 460, 260, 250, 250, 55, 55, "images\\Plain.jpg", "images\\Lv2PopUp.png", {Bubble});
+const Level Lv3(3, 550, 280, 300, 300, 60, 60, "images\\Plain.jpg", "images\\Lv3PopUp.png", {Slimy, Bubble});
+const Level Lv4(4, 510, 260, 300, 300, 60, 60, "images\\Plain.jpg", "images\\Lv4PopUp.png", {Slimy, Slimy});
+const Level Lv5(5, 480, 220, 350, 350, 60, 60, "images\\Beach.jpg", "images\\Lv5PopUp.png", {FireBomb, Slimy});
+const Level Lv6(6, 440, 320, 400, 400, 65, 65, "images\\Plain.jpg", "images\\Lv6PopUp.png", {Squishee, FireBomb, Squishee});
+const Level Lv7(7, 530, 340, 450, 450, 70, 70, "images\\Plain.jpg", "images\\Lv7PopUp.png", {FireBomb, Slimy, Bubble});
+const Level Lv8(8, 550, 370, 500, 500, 75, 75, "images\\Plain.jpg", "images\\Lv8PopUp.png", {FireBomb, Drowning, Slimy});
+const Level Lv9(9, 580, 320, 550, 550, 75, 75, "images\\Plain.jpg", "images\\Lv9PopUp.png", {FireBomb, FireBomb, Slimy});
+const Level Lv10(10, 480, 350, 800, 800, 90, 90, "images\\Beach.jpg", "images\\Lv10PopUp.png", {Volcano, FireBomb});
+const Level Lv11(11, 400, 440, 550, 550, 75, 75, "images\\Highland.jpg", "images\\Lv11PopUp.png", {Hungtree, Hungtree});
+
+//Cap do kho
+const int TotalHardLevel = 1;
+const Level LvHard1(-1, 600, 470, 2000, 2000, 1, 1, "images//Cave.jpg", "images\\LvHard1PopUp.png", {LandLord});

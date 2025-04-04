@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1743703448 source:d:\24020138_monsters_war\main.cpp
+1743804782 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
 	"CreateMap.h"
 	"GameOn.h"
@@ -56,7 +56,7 @@
 1743169370 source:d:\24020138_monsters_war\level.cpp
 	"Level.h"
 
-1743691016 d:\24020138_monsters_war\level.h
+1743804845 d:\24020138_monsters_war\level.h
 	<iostream>
 	<cmath>
 	<algorithm>
@@ -69,14 +69,14 @@
 	<vector>
 	"Monster.h"
 
-1743703563 source:d:\24020138_monsters_war\gameon.cpp
+1743790047 source:d:\24020138_monsters_war\gameon.cpp
 	"GameOn.h"
 	"Combat.h"
 
 1743702887 d:\24020138_monsters_war\gameon.h
 	"Const.h"
 
-1743691016 d:\24020138_monsters_war\monster.h
+1743804905 d:\24020138_monsters_war\monster.h
 	<iostream>
 	<cmath>
 	<algorithm>
@@ -104,11 +104,11 @@
 	"Const.h"
 	"BasicFunctions.h"
 
-1743435089 source:d:\24020138_monsters_war\createmap.cpp
+1743804604 source:d:\24020138_monsters_war\createmap.cpp
 	"CreateMap.h"
 	"Level.h"
 
-1743216950 d:\24020138_monsters_war\createmap.h
+1743804585 d:\24020138_monsters_war\createmap.h
 	"Const.h"
 	"BasicFunctions.h"
 

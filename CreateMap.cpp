@@ -1,7 +1,7 @@
 #include "CreateMap.h"
 #include "Level.h"
 
-void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, int n)
+void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, int n, Level *LvHard, int n1)
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
@@ -78,6 +78,14 @@ void UpdateCreateMap(SDL_Renderer* renderer, int &Money, int &Food, Level *Lv, i
         background = loadIMG((Lv[i - 1].check == true) ? Lv[i].Button[1].c_str() : Lv[i].Button[0].c_str(), renderer, background);
         if(Lv[i].check == true) background = loadIMG(Lv[i].Button[2].c_str(), renderer, background);
         SDL_RenderCopy(renderer, background, NULL, &Lv[i].Rect);
+        SDL_DestroyTexture(background);
+        background = nullptr;
+    }
+    //Ve LV Hard
+    for(int i = 1; i <= n1; i++)
+    {
+        background = loadIMG(LvHard[i].Button[3].c_str(), renderer, background);
+        SDL_RenderCopy(renderer, background, NULL, &LvHard[i].Rect);
         SDL_DestroyTexture(background);
         background = nullptr;
     }
