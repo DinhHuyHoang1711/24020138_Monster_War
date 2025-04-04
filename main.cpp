@@ -3,6 +3,7 @@
 #include "GameOn.h"
 #include "ShowInventory.h"
 #include "Shopping.h"
+#include "GameState.h"
 const char* WINDOW_TITLE = "Monsters_War";
 using namespace std;
 
@@ -11,11 +12,95 @@ vector <Monster> PlayerMonster = {Liquiz};
 vector <Monster> Inventory = {Liquiz};
 vector <int> InventoryToSquad = {0};
 vector <Monster> MonsterList = {Liquiz, Eater, Magma, Crops};
-
 Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2, Lv3, Lv4, Lv5, Lv6, Lv7, Lv8, Lv9, Lv10, Lv11};
 Level LvHard[TotalHardLevel + 1] = {Lv0, LvHard1};
 int Money = 100;
 int Food = 100;
+
+/*void saveGame()
+{
+    GameState G;
+    G.MoneyState = Money;
+    G.FoodState = Food;
+    G.PlayerMonsterState.clear();
+    G.InventoryToSquadState.clear();
+    G.InventoryState.clear();
+    G.LvState.clear();
+    G.LvHardState.clear();
+    for(int i = 0; i < PlayerMonster.size(); i++)
+    {
+        G.PlayerMonsterState.push_back(PlayerMonster[i]);
+    }
+    for(int i = 0; i < Inventory.size(); i++)
+    {
+        G.InventoryState.push_back(Inventory[i]);
+    }
+    for(int i = 0; i < InventoryToSquad.size(); i++)
+    {
+        G.InventoryToSquadState.push_back(InventoryToSquad[i]);
+    }
+    for(int i = 0; i < TotalLevel + 1; i++)
+    {
+        G.LvState.push_back(Lv[i].check);
+    }
+    for(int i = 0; i < TotalHardLevel + 1; i++)
+    {
+        G.LvHardState.push_back(LvHard[i].check);
+    }
+    saveState(G, "save.dat");
+}
+
+void loadGame()
+{
+    GameState G;
+    if(loadState(G, "save.dat"))
+    {
+        Money = G.MoneyState;
+        Food = G.FoodState;
+        PlayerMonster.clear();
+        Inventory.clear();
+        InventoryToSquad.clear();
+        for(int i = 0; i < G.PlayerMonsterState.size(); i++)
+        {
+            PlayerMonster.push_back(G.PlayerMonsterState[i]);
+        }
+        for(int i = 0; i < G.InventoryState.size(); i++)
+        {
+            Inventory.push_back(G.InventoryState[i]);
+        }
+        for(int i = 0; i < G.InventoryToSquadState.size(); i++)
+        {
+            InventoryToSquad.push_back(G.InventoryToSquadState[i]);
+        }
+        for(int i = 0; i < TotalLevel + 1; i++)
+        {
+            Lv[i].check = G.LvState[i];
+        }
+        for(int i = 0; i < TotalHardLevel + 1; i++)
+        {
+            LvHard[i].check = G.LvHardState[i];
+        }
+        Lv[0].check = true;
+        LvHard[0].check = true;
+    }
+    else
+    {
+        PlayerMonster = {Liquiz};
+        Inventory = {Liquiz};
+        InventoryToSquad = {0};
+        Money = 100;
+        Food = 100;
+        for(int i = 1; i < TotalLevel + 1; i++)
+        {
+            Lv[i].check = false;
+        }
+        for(int i = 1; i < TotalHardLevel +1; i++)
+        {
+            LvHard[i].check = false;
+        }
+    }
+}
+*/
 
 int main(int argc, char *argv[])
 {
@@ -91,6 +176,7 @@ int main(int argc, char *argv[])
                 SDL_Point MousePoint = {e.button.x, e.button.y};
                 if(SDL_PointInRect(&MousePoint, &StartRect) || SDL_PointInRect(&MousePoint, &NewGameRect))
                 {
+                    //loadGame();
                     if(SDL_PointInRect(&MousePoint, &NewGameRect))
                     {
                         PlayerMonster = {Liquiz};
@@ -102,6 +188,10 @@ int main(int argc, char *argv[])
                         {
                             Lv[i].check = false;
                         }
+                        for(int i = 1; i < TotalHardLevel; i++)
+                        {
+                            LvHard[i].check = false;
+                        }
                     }
 
                     UpdateCreateMap(renderer, Money, Food, Lv, TotalLevel, LvHard, TotalHardLevel);//Cap nhat map, money, food
@@ -112,6 +202,7 @@ int main(int argc, char *argv[])
                         {
                             if(e.type == SDL_QUIT)//Quit game
                             {
+                                //saveGame();
                                 SDL_DestroyTexture(background);
                                 background = nullptr;
                                 SDL_DestroyRenderer(renderer);
@@ -188,6 +279,7 @@ int main(int argc, char *argv[])
                                 //Mo Setting
                                 if(SDL_PointInRect(&MousePoint, &GearRect))
                                 {
+                                    //saveGame();
                                     *ok = false;
                                     background = loadIMG("images\\giaodien.jpg", renderer, background);
                                     SDL_RenderCopy(renderer, background, NULL, NULL);

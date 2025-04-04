@@ -41,6 +41,8 @@
 		<Unit filename="CreateMap.h" />
 		<Unit filename="GameOn.cpp" />
 		<Unit filename="GameOn.h" />
+		<Unit filename="GameState.cpp" />
+		<Unit filename="GameState.h" />
 		<Unit filename="Images/bando.jpg" />
 		<Unit filename="Images/giaodien.jpg" />
 		<Unit filename="Level.h" />

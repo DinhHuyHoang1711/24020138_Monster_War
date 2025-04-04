@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1743804782 source:d:\24020138_monsters_war\main.cpp
+1743809806 source:d:\24020138_monsters_war\main.cpp
 	"Const.h"
 	"CreateMap.h"
 	"GameOn.h"
 	"ShowInventory.h"
 	"Shopping.h"
+	"GameState.h"
 
 1743155067 source:d:\24020138_monsters_war\chukiham.cpp
 	"ChuKiHam.h"
@@ -125,4 +126,25 @@
 
 1743702399 source:d:\24020138_monsters_war\shopping.cpp
 	"Shopping.h"
+
+1743809308 d:\24020138_monsters_war\gamestate.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<cmath>
+	<algorithm>
+	<string>
+	<cstring>
+	<vector>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	"BasicFunctions.h"
+	"Level.h"
+	"Monster.h"
+	<fstream>
+
+1743809731 source:d:\24020138_monsters_war\gamestate.cpp
+	"GameState.h"
 
