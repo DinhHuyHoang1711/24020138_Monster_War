@@ -14,8 +14,8 @@ vector <int> InventoryToSquad = {0};
 vector <Monster> MonsterList = {Liquiz, Eater, Magma, Crops};
 Level Lv[TotalLevel + 1] = {Lv0, Lv1, Lv2, Lv3, Lv4, Lv5, Lv6, Lv7, Lv8, Lv9, Lv10, Lv11};
 Level LvHard[TotalHardLevel + 1] = {Lv0, LvHard1};
-int Money = 100;
-int Food = 100;
+int Money = 500;
+int Food = 500;
 
 /*void saveGame()
 {
@@ -182,8 +182,8 @@ int main(int argc, char *argv[])
                         PlayerMonster = {Liquiz};
                         Inventory = {Liquiz};
                         InventoryToSquad = {0};
-                        Money = 100;
-                        Food = 100;
+                        Money = 500;
+                        Food = 500;
                         for(int i = 1; i <= TotalLevel; i++)
                         {
                             Lv[i].check = false;
