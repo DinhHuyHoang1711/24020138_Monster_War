@@ -1,9 +1,3 @@
-	ĐẠI HỌC QUỐC GIA HÀ NỘI	CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
-	TRƯỜNG ĐẠI HỌC CÔNG NGHỆ	Độc lập - Tự do - Hạnh phúc
-	🙥🕮🙧	====================
-BÁO CÁO BÀI TẬP LỚP MÔN LẬP TRÌNH NÂNG CAO
-Sinh viên: Đinh Huy Hoàng	Mã sinh viên: 24020138
-Ngành học: Công nghệ thông tin	Lớp Môn học: INT 2215 – 3
 Tên game: Monsters War
 Lối chơi, logic của game:
 - Lối chơi: 
